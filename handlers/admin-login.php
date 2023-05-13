@@ -6,8 +6,7 @@ require_once("{$base_dir}includes{$ds}classAutoLoader.inc.php");
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-$login = new LoginUser($email, $password);
+$login = new LoginAdmin($email, $password);
 
 
 ?>
-

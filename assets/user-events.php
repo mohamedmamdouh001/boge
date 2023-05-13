@@ -1,3 +1,14 @@
+<?php
+include "../classes/Dbh.php";
+session_start();
+$user_email = $_SESSION['email'];
+if(empty($_SESSION['email'])){
+    header("location:user-login.php");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,7 +111,8 @@
                                 </div>
                                 <a href="contact.html" class="nav-item nav-link">Contact</a>
                             </div>
-                            <a href="sign in/index.html" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"> LOG IN / REGESTION<i class="fa fa-arrow-right ms-3"></i></a>
+                            
+                            <!-- <a href="#" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"><?php echo $_SESSION['name'] ?><i class="fa fa-arrow-right ms-3"></i></a> -->
                         </div>
                     </nav>
                 </div>
@@ -176,7 +188,7 @@
                   
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <!-- <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
                                 <img class="img-fluid" src="eventsimg/1t.jpg" alt="">
@@ -204,7 +216,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
@@ -227,7 +239,7 @@
                                     <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
                                     <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
                                 </div>
-                                <p class="text-body mb-3">Enjoy the music with your family and friends while listening to Hamza Namira’s unique songs <br>,
+                                <p class="text-body mb-3">THIS IS  A DESIGN Enjoy the music with your family and friends while listening to Hamza Namira’s unique songs <br>,
                                     Join us at the Marquee theatre at Cairo festival city on 24th of February and get entertained.
                                     
 

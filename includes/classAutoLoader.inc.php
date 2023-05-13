@@ -9,7 +9,7 @@ function classAutoLoader($className){
     else{
         $path = "classes/";
     }
-    $extension = ".class.php" ;
+    $extension = ".php" ;
 
     include $path . $className . $extension;
 }

@@ -10,7 +10,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title> BOGE USERS </title>
+    <title> BOGE partners </title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -23,7 +23,7 @@
     <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="users/css/main.css" rel="stylesheet" media="all">
+    <link href="become a partner style/css/main.css" rel="stylesheet" media="all">
 </head>
 
 <body>
@@ -64,13 +64,13 @@
           </div>
           <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
             <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-              <h1><a href="" rel="dofollow"> signup </a></h1>
+              <h1><a href="" rel="dofollow">become a partner </a></h1>
             </div>
             <div class="formbold-main-wrapper">
              
               <div class="formbold-form-wrapper">
                      <img src="">
-                <form action="../handlers/user-register.handl.php" method="POST">
+                <form action="../handlers/owner-register.handl.php" method="POST" enctype="multipart/form-data" >
                   <div class="formbold-input-wrapp formbold-mb-3">
                     <label for="firstname" class="formbold-form-label"> Name </label>
             
@@ -107,9 +107,9 @@
                     <label for="national id" class="formbold-form-label"> National id </label>
                     <input
                       type="text"
-                      name="national_id"
+                      name="ssn"
                       id="national_id"
-                      placeholder="national id"
+                      placeholder="your national_id"
                       class="formbold-form-input"
                     />
                   </div>
@@ -131,42 +131,32 @@
                       class="formbold-form-input"
                     />
                   </div>
-                  
-                  <div class="formbold-mb-3">
-                    <label for="pasword" class="formbold-form-label"> password </label>
+
+                  <!-- <div class="formbold-mb-3">
+                    <label for="email" class="formbold-form-label"> password </label>
                     <input
                       type="password"
                       name="password"
-                      id="pasword"
-                      placeholder=""
+                      id="password"
+                      placeholder="password"
                       class="formbold-form-input"
                     />
-                  </div>
+                  </div> -->
             
                   <div class="formbold-mb-3">
                     <label for="address" class="formbold-form-label"> City </label>
             
                     <input
                       type="text"
-                      name="address"
+                      name="city"
                       id="address"
-                      placeholder="cityname"
+                      placeholder="ex:cairo"
                       class="formbold-form-input formbold-mb-3"
                     />
                  
                   </div>
-                  
-                  <div class="formbold-mb-3">
-                    <label class="formbold-form-label">Gender</label>
             
-                    <select class="formbold-form-input" name="occupation" id="occupation">
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="others">Others</option>
-                    </select>
-                  </div>
-            
-                  <div class="formbold-mb-3 formbold-input-wrapp">
+                  <!-- <div class="formbold-mb-3 formbold-input-wrapp">
                     <label for="phone" class="formbold-form-label"> Phone </label>
             
                     <div>
@@ -180,7 +170,7 @@
                         class="formbold-form-input"
                       />
                     </div>
-                  </div>
+                  </div> -->
             
                   <div class="formbold-input-flex">
                     <div>
@@ -194,13 +184,13 @@
             
                   <div class="formbold-mb-3">
                     <label for="upload" class="formbold-form-label">
-                     position
+                      Upload documentation
                     </label>
                     <input
-                      type="potion"
-                      name="position"
-                      id=""
-                      placeholder="ex:student"
+                      type="file"
+                      name="documentation"
+                      id="upload"
+                      placeholder="PDF"
                       class="formbold-form-input formbold-form-file"
                     />
                   </div>

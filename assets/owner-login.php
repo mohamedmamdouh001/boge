@@ -78,19 +78,19 @@
               <div class="formbg">
                 <div class="formbg-inner padding-horizontal--48">
                   <span class="padding-bottom--15">Sign in to your account</span>
-                  <form id="stripe-login">
+                  <form id="stripe-login" method="post" action="../handlers/owner-login.handl.php" >
                     <div class="field padding-bottom--24">
                       <label for="email">Email</label>
                       <input type="email" name="email">
                     </div>
                     <div class="field padding-bottom--24">
                       <div class="grid--50-50">
-                        <label for="password">Password</label>
-                        <div class="reset-pass">
+                        <label for="password">National ID</label>
+                        <!-- <div class="reset-pass">
                           <a href="#">Forgot your password?</a>
-                        </div>
+                        </div> -->
                       </div>
-                      <input type="password" name="password">
+                      <input type="password" name="ssn">
                     </div>
                     <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
                       <label for="checkbox">

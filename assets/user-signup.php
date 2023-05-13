@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +13,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title> BOGE partners </title>
+    <title> BOGE USERS </title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -22,8 +25,12 @@
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
     <!-- Main CSS-->
-    <link href="become a partner style/css/main.css" rel="stylesheet" media="all">
+    <link href="users/css/main.css" rel="stylesheet" media="all">
 </head>
 
 <body>
@@ -64,14 +71,34 @@
           </div>
           <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
             <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-              <h1><a href="" rel="dofollow">become a partner </a></h1>
+              <h1><a href="" rel="dofollow"> signup </a></h1>
             </div>
             <div class="formbold-main-wrapper">
              
               <div class="formbold-form-wrapper">
                      <img src="">
-                <form action="" method="POST">
+                <form action="../handlers/user-register.handl.php" method="POST">
                   <div class="formbold-input-wrapp formbold-mb-3">
+                    <!-- Error message -->
+                    <?php
+                     if (isset($_SESSION['error'])) {?>
+                      <div class="alert alert-danger" role="alert">
+                        <?= $_SESSION['error'] ?>
+                      </div>
+                      <?php
+                      unset($_SESSION['error']);
+                    }
+                    ?>
+                    <!-- Success Message -->
+                    <?php
+                     if (isset($_SESSION['success'])) {?>
+                      <div class="alert alert-danger" role="alert">
+                        <?= $_SESSION['success'] ?>
+                      </div>
+                      <?php
+                      unset($_SESSION['success']);
+                    }
+                    ?>
                     <label for="firstname" class="formbold-form-label"> Name </label>
             
                     <div>
@@ -109,7 +136,7 @@
                       type="text"
                       name="national_id"
                       id="national_id"
-                      placeholder="your national_id"
+                      placeholder="national id"
                       class="formbold-form-input"
                     />
                   </div>
@@ -131,14 +158,14 @@
                       class="formbold-form-input"
                     />
                   </div>
-
+                  
                   <div class="formbold-mb-3">
-                    <label for="email" class="formbold-form-label"> password </label>
+                    <label for="pasword" class="formbold-form-label"> password </label>
                     <input
                       type="password"
                       name="password"
-                      id="password"
-                      placeholder="password"
+                      id="pasword"
+                      placeholder=""
                       class="formbold-form-input"
                     />
                   </div>
@@ -150,10 +177,20 @@
                       type="text"
                       name="address"
                       id="address"
-                      placeholder="ex:cairo"
+                      placeholder="cityname"
                       class="formbold-form-input formbold-mb-3"
                     />
                  
+                  </div>
+                  
+                  <div class="formbold-mb-3">
+                    <label class="formbold-form-label">Gender</label>
+            
+                    <select class="formbold-form-input" name="occupation" id="occupation">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="others">Others</option>
+                    </select>
                   </div>
             
                   <div class="formbold-mb-3 formbold-input-wrapp">
@@ -184,13 +221,13 @@
             
                   <div class="formbold-mb-3">
                     <label for="upload" class="formbold-form-label">
-                      Upload documentation
+                     position
                     </label>
                     <input
-                      type="file"
-                      name="upload"
-                      id="upload"
-                      placeholder="PDF"
+                      type="potion"
+                      name="position"
+                      id=""
+                      placeholder="ex:student"
                       class="formbold-form-input formbold-form-file"
                     />
                   </div>

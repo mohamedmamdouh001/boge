@@ -1,3 +1,9 @@
+<?php
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,7 +101,7 @@
                                     </div>
                                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                                 </div>
-                                <a href="user-login.html" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"> LOG IN / REGESTION<i class="fa fa-arrow-right ms-3"></i></a>
+                                <a href="user-login.php" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"> LOG IN / REGESTION<i class="fa fa-arrow-right ms-3"></i></a>
                             </div>
                         </nav>
                     </div>

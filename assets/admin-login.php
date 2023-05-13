@@ -78,7 +78,7 @@
               <div class="formbg">
                 <div class="formbg-inner padding-horizontal--48">
                   <span class="padding-bottom--15">  </span>
-                  <form id="stripe-login">
+                  <form id="stripe-login" method="post" action="../handlers/admin-login.php" >
                     <div class="field padding-bottom--24">
                       <label for="email">Email</label>
                       <input type="email" name="email">
