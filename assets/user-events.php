@@ -1,8 +1,8 @@
 <?php
-include "../classes/Dbh.php";
+include "../config/config.php";
 session_start();
-$user_email = $_SESSION['email'];
-if(empty($_SESSION['email'])){
+$user_email = $_SESSION['user_email'];
+if(empty($user_email)){
     header("location:user-login.php");
 }
 
@@ -127,7 +127,7 @@ if(empty($_SESSION['email'])){
         <div class="container-fluid page-header mb-5 p-0" style="background-image: url(eventsimg/7T.jpg);">
             <div class="container-fluid page-header-inner py-5">
                 <div class="container text-center pb-5">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown"> events </h1>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown"> EVENTS </h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             
@@ -188,194 +188,44 @@ if(empty($_SESSION['email'])){
                   
                 </div>
                 <div class="row g-4">
-                    <!-- <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <?php
+                    $stmt = "SELECT * FROM `event` WHERE `status` = 'accepted'";
+                    $result = mysqli_query($conn, $stmt);
+                    while($row = mysqli_fetch_assoc($result)){
+                        $date_arr = explode( ' ', $row['date'], 2);
+                        $date = $date_arr[0];
+                        $time = $date_arr[1];
+
+                    ?>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src="eventsimg/1t.jpg" alt="">
+                                <img class="img-fluid" src="event_img/<?=$row['event_img']?>" alt="">
                                 <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">01 May  </small>
                             </div>
                             <div class="p-4 mt-2">
                                 <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0">Backstreet Boys</h5>
+                                    <h5 class="mb-0"><?=$row['name'] ?></h5>
                                     <div class="ps-2">
                                    
                                     </div>
                                 </div>
                                 <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-music"></i></i> entertainment </small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 9 to 10 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i>  
-                                        6,000EGP  </small>
+                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-music"></i></i> <?=$row['category'] ?> </small>
+                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> <?=$time ?></small>
+                                    <small><i class="fa-solid fa-money-check-dollar"></i>  <?=$row['price'] ?> EGP  </small>
                                 </div>
                                 <p class="text-body mb-3">
-                                    
-                                    Egypt as part of their DNA World Tour. The tour also includes a huge run of shows across Europe, UAE, KSA, India and South Africa. This will be the group’s first performance for audiences in a country with one of the most historically and visually riveting backgrounds.
+                                    Event Information:
+                                    <?=$row['description'] ?><br> hosting by BOGE.</p>
                                     <div class="d-flex justify-content-between">
                                     <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
                                     <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
                                 </div>
                             </div>
                         </div>
-                    </div> -->
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="im/Snapinsta.app_1080_327967576_1166904457356918_4182468031910795569_n.jpg" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">20 mar</small>
-                            </div>
-                            <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0">Hamza Namira</h5>
-                                    <div class="ps-2">
-                                       <!-- <small class="fa fa-star text-primary"> </small>
-                                        <small class="fa fa-star text-primary"></small>
-                                        <small class="fa fa-star text-primary"></small>
-                                        <small class="fa fa-star text-primary"></small>
-                                        <small class="fa fa-star text-primary"></small>-->
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-music"></i></i> entertainment </small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
-                                </div>
-                                <p class="text-body mb-3">THIS IS  A DESIGN Enjoy the music with your family and friends while listening to Hamza Namira’s unique songs <br>,
-                                    Join us at the Marquee theatre at Cairo festival city on 24th of February and get entertained.
-                                    
-
-                                </p>
-                                <br>
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="view detials page.html">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/img2/8.jpg" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">16 nov</small>
-                            </div>
-                            <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0"> padel fest </h5>
-                                    <div class="ps-2">
-                                        
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-table-tennis-paddle-ball"></i> sport</small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
-                                </div>
-                                <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident amet ex, temporibus culpa, magni 
-                                    and get entertained.
-                                </p>
-                              <br>
-
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/img2/8.jpg" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">16 nov</small>
-                            </div>
-                            <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0"> padel fest </h5>
-                                    <div class="ps-2">
-                                        
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-table-tennis-paddle-ball"></i> sport</small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
-                                </div>
-                                <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident amet ex, temporibus culpa, magni 
-                                    and get entertained.
-                                </p>
-                              <br>
-
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/img2/8.jpg" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">16 nov</small>
-                            </div>
-                            <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0"> padel fest </h5>
-                                    <div class="ps-2">
-                                        
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-table-tennis-paddle-ball"></i> sport</small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
-                                </div>
-                                <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident amet ex, temporibus culpa, magni 
-                                    and get entertained.
-                                </p>
-                              <br>
-
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/img2/8.jpg" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">16 nov</small>
-                            </div>
-                            <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0"> padel fest </h5>
-                                    <div class="ps-2">
-                                        
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-table-tennis-paddle-ball"></i> sport</small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
-                                </div>
-                                <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident amet ex, temporibus culpa, magni 
-                                    and get entertained.
-                                </p>
-                              <br>
-
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php }?>
                 </div>
             </div>
         </div>

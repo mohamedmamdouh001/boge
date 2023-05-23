@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,7 +82,17 @@
                 <div class="formbg-inner padding-horizontal--48">
                   <span class="padding-bottom--15">Sign in to your account</span>
                   <form id="stripe-login" method="post" action="../handlers/owner-login.handl.php" >
+                  <?php
+                     if (isset($_SESSION['error'])) {?>
+                      <div class="alert alert-danger" role="alert">
+                        <?= $_SESSION['error'] ?>
+                      </div>
+                      <?php
+                      unset($_SESSION['error']);
+                    }
+                    ?>
                     <div class="field padding-bottom--24">
+
                       <label for="email">Email</label>
                       <input type="email" name="email">
                     </div>
@@ -107,7 +120,7 @@
                 </div>
               </div>
               <div class="footer-link padding-top--24">
-                <span>Don't have an account? <a href="REG/index.html">Sign up</a></span>
+                <span>Don't have an account? <a href="owner-signup.php">Sign up</a></span>
                 <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
                   <span><a href="#">BOGE</a></span>
                   <span><a href="#">Contact</a></span>

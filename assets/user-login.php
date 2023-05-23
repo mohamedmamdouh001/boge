@@ -123,7 +123,7 @@ session_start();
                 </div>
               </div>
               <div class="footer-link padding-top--24">
-                <span>Don't have an account? <a href="user-signup.html">Sign up</a></span>
+                <span>Don't have an account? <a href="user-signup.php">Sign up</a></span>
                 <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
                   <span><a href="#">BOGE</a></span>
                   <span><a href="#">Contact</a></span>

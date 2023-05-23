@@ -1,4 +1,55 @@
+//start user icon
+$(document).ready(function() {
 
+	var avatar = $("#header-avatar");
+	var dropdown = $("#avatar-dropdownmenu");
+	var bubble = $("#notification-bubble");
+	
+	avatar.click( function(event) {
+		event.stopPropagation();
+		dropdown.toggle();
+	});
+	
+	// body click closes menu
+	$("body").click( function() {
+		dropdown.hide();
+	});
+	
+	// determine if there are any notifications, display bubble if applicable
+	if ( detectNotifications() ) {
+		setTimeout(displayNotificationBubble, 2500);
+	}
+	
+	function detectNotifications() {
+		var bubbleTextLength = bubble.find('span').text().length;
+		if (bubbleTextLength > 0) {
+			return true;
+		}
+		else {
+			return false;		
+		}
+	}
+	
+	
+	function displayNotificationBubble() {
+		var bubbleText = bubble.find('span');
+		var bubbleTextWidth = bubbleText.outerWidth();
+		var singleCharWidth = bubbleTextWidth / bubbleText.text().length;
+		var textIndent = bubbleText.css('text-indent').substr(0, bubbleText.css('text-indent').length-2)-1;
+		var initialBubbleWidth = parseInt(bubble.outerWidth());
+		
+		var desiredLeftMargin = bubbleTextWidth + (textIndent*2);
+		avatar.animate({
+			marginLeft: desiredLeftMargin
+		}, 500);
+		
+		var desiredBubbleWidth = initialBubbleWidth + bubbleTextWidth + singleCharWidth;
+		bubble.animate({
+			width: desiredBubbleWidth
+		}, 500);
+	}
+}); 
+//enduser icon
 (function ($) {
     "use strict";
 

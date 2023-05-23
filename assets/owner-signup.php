@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,6 +75,15 @@
                      <img src="">
                 <form action="../handlers/owner-register.handl.php" method="POST" enctype="multipart/form-data" >
                   <div class="formbold-input-wrapp formbold-mb-3">
+                  <?php
+                     if (isset($_SESSION['error'])) {?>
+                      <div class="alert alert-danger" role="alert">
+                        <?= $_SESSION['error'] ?>
+                      </div>
+                      <?php
+                      unset($_SESSION['error']);
+                    }
+                    ?>
                     <label for="firstname" class="formbold-form-label"> Name </label>
             
                     <div>
@@ -182,19 +194,7 @@
                     </div>
                   </div>
             
-                  <div class="formbold-mb-3">
-                    <label for="upload" class="formbold-form-label">
-                      Upload documentation
-                    </label>
-                    <input
-                      type="file"
-                      name="documentation"
-                      id="upload"
-                      placeholder="PDF"
-                      class="formbold-form-input formbold-form-file"
-                    />
-                  </div>
-            
+             
                   <div class="formbold-checkbox-wrapper">
                     <label for="supportCheckbox" class="formbold-checkbox-label">
                       <div class="formbold-relative">
@@ -226,7 +226,7 @@
                     </label>
                   </div>
             
-                  <button class="formbold-btn">Submit</button>
+                  <button  class="formbold-btn">Submit</button>
                 </form>
               </div>
             </div>
@@ -380,7 +380,7 @@
                 padding: 3px 12px;
                 outline: none;
                 white-space: nowrap;
-                -webkit-user-select: none;
+              
                 cursor: pointer;
                 color: #637381;
                 font-weight: 500;

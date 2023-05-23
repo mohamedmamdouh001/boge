@@ -1,8 +1,17 @@
 <?php
-
-
+include '../config/config.php';
+session_start();
+if(isset($_SESSION['user_email'])){
+    $user_email = $_SESSION['user_email'];
+}
+// if(empty($user_email)){
+//     header("location:user-login.php");
+// }
+if(isset($_GET['signout'])){
+    unset($_SESSION['user_email']);
+    header('location:owner-login.php');
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +20,7 @@
    
     <meta charset="utf-8">
     <title> boge </title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="width=device-width, initial-scale=1.0" name="evport">
     <meta content="" name="keywords">
     <meta content="" name="description">
     <!---fontawsome cdn-->
@@ -50,7 +59,7 @@
             <div class="container-fluid bg-dark px-0">
                 <div class="row gx-0">
                     <div class="col-lg-3 bg-dark d-none d-lg-block">
-                        <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                        <a href="index.php" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                            <img src="BOGE-logos_white.png" alt="" style=" width: 120px;;">
 
                         </a>
@@ -80,28 +89,44 @@
                         <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
                             <a href="index.html" class="navbar-brand d-block d-lg-none">
                                
-                                </h1>
+                               BOGE
                             </a>
                             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                                    <a href="index.php" class="nav-item nav-link active">Home</a>
                                     <a href="#hotevents" class="nav-item nav-link"> hot events   </a>
-                                    <a href="EVENTS.html" class="nav-item nav-link"> events </a>
+                                    <a href="user-events.php" class="nav-item nav-link"> events </a>
                                     
                                     <div class="nav-item dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">become a partner</a>
                                         <div class="dropdown-menu rounded-0 m-0">
-                                            <a href="become a partner/REG/index.html" class="dropdown-item"> create an event</a>
-                                            <a href="become a partner/PARTNER LOIN.html" class="dropdown-item">login as a partner</a>
+                                            <a href="owner-signup.php" class="dropdown-item"> REGESTION as apartner </a>
+                                            <a href="owner-login.php" class="dropdown-item">login as a partner</a>
                                             <a href="" class="dropdown-item"></a>
                                         </div>
                                     </div>
-                                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                                    <a href="user-contact.html" class="nav-item nav-link">Contact</a>
                                 </div>
-                                <a href="user-login.php" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"> LOG IN / REGESTION<i class="fa fa-arrow-right ms-3"></i></a>
+                                <?php
+                                if(!empty($user_email)){
+                                    $sql = "SELECT * FROM `user` WHERE email='$user_email'";
+                                    $result = mysqli_query($conn, $sql);
+                                    $row = mysqli_fetch_assoc($result); ?>
+                                    <form action="" method="get">
+                                        <p class="rounded-0 py-4 px-md-5 d-none d-lg-block" style="background-color:#FEA116; color: white; " > <?=$row['name'] ?> </p>
+                                        <button type="submit" name="signout" class="btn btn-danger">Logout</button>
+                                    </form>
+                                <?php    
+                                }
+                                else{ ?>
+                                    <a href="user-login.php" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"> LOG IN / REGESTION<i class="fa fa-arrow-right ms-3"></i></a>
+                                <?php
+                                }
+                                ?>
+                                
                             </div>
                         </nav>
                     </div>
@@ -121,7 +146,7 @@
                               
                                 <h1 class="display-3 text-white mb-4 animated slideInDown">FIND PLANS FOR TODAY</h1>
                                 <h5 class="section-title text-white text-uppercase mb-3 animated slideInDown">Discover new experiences and more ways to do things you love</h5>
-                                <a href="EVENTS.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"> FIND YOUR NEXT  event</a>
+                                <a href="user-events.php" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"> FIND YOUR NEXT  event</a>
                                 
                             </div>
                         </div>
@@ -133,7 +158,7 @@
                               
                                 <h1 class="display-3 text-white mb-4 animated slideInDown">FIND PLANS FOR TODAY</h1>
                                 <h5 class="section-title text-white text-uppercase mb-3 animated slideInDown">Discover new experiences and more ways to do things you love</h5>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"> FIND YOUR NEXT  event</a>
+                                <a href="user-events.php" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"> FIND YOUR NEXT  event</a>
 
                             </div>
                         </div>
@@ -151,47 +176,7 @@
                 </button>
             </div>
         </div>
-        <!-- Carousel End -->
-
-
-        <!-- Booking Start -->
-        <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="bg-white shadow" style="padding: 35px;">
-                    <div class="row g-2">
-                        <div class="col-md-10">
-                            <div class="row g-2">
-                                <div class="col-md-3">
-                                    <div class="name" id="date1" data-target-input="nearest">
-                                        <select class="form-select">
-                                            <option selected> categroy  </option>
-                                            <option value="1">entertament  </option>
-                                            <option value="1">eductional  </option>
-                                            <option value="1">sports event  </option>
-                                        </select>
-                                        
-                                       
-                                    </div>
-                                </div>
-          
-                             
-                                <div class="col-md-9">
-                                    <input style="width: 100%
-                                        ;" type="text" class="form-control datetimepicker-input"
-                                            placeholder=" Event Name" data-target="" data-toggle="datetimepicker" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary w-100"> find your enent
-                                 </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Booking End -->
-
+ 
 
        
 
@@ -203,104 +188,48 @@
                     <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">events</span></h1>
                 </div>
                 <div class="row g-4">
+                    <?php
+                    $stmt = "SELECT * FROM `event` WHERE `status` = 'accepted' LIMIT 3";
+                    $result = mysqli_query($conn, $stmt);
+                    while($row = mysqli_fetch_assoc($result)){
+                        $date_arr = explode( ' ', $row['date'], 2);
+                        $date = $date_arr[0];
+                        $time = $date_arr[1];
+
+                    ?>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src="img/img2/3.jpg" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">26 feb </small>
+                                <img class="img-fluid" src="event_img/<?=$row['event_img']?>" alt="">
+                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4"> <?=$date ?> </small>
                             </div>
                             <div class="p-4 mt-2">
                                 <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0">El Da7ee7 live show</h5>
+                                    <h5 class="mb-0"><?=$row['name'] ?></h5>
                                     <div class="ps-2">
                                    
                                     </div>
                                 </div>
                                 <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-sharp fa-solid fa-book"></i> eductional </small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
+                                    <small class="border-end me-3 pe-3"><i class="fa-sharp fa-solid fa-book"></i> <?=$row['category'] ?> </small>
+                                     <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> <?=$time ?> </small>
+                                    <small><i class="fa-solid fa-money-check-dollar"></i> <?=$row['price'] ?> EGP  </small>
                                 </div>
-                                <p class="text-body mb-3">INFO
-                                    Live performance
-                                    Nobody should call himself a real DA7EE7, because there is only one and he’s coming to Zed Winter Festival for the very first time to present to us El Da7ee7 LIVE show         <br> hosting by BOGE.</p>
+                                <p class="text-body mb-3">Event Information:
+                                <?=$row['description'] ?><br> hosting by BOGE.</p>
                                 <br>
                                     <div class="d-flex justify-content-between">
-                                    <a  href="view detials page.html" class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
+                                        <a  style="width: 200px;" class=" btn btn-sm btn-dark rounded py-2 px-4 " href="elda7e7eventdetials.html"> book now  </a>
+                                 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="im/Snapinsta.app_1080_327967576_1166904457356918_4182468031910795569_n.jpg" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">20 mar</small>
-                            </div>
-                            <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0">Hamza Namira</h5>
-                                    <div class="ps-2">
-                                   
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-music"></i></i> entertainment </small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
-                                </div>
-                                <p class="text-body mb-3">Enjoy the music with your family and friends while listening to Hamza Namira’s unique songs <br>,
-                                    Join us at the Marquee theatre at Cairo festival city on 24th of February and get entertained.
-                                    
-
-                                </p>
-                                <br>
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="img/img2/8.jpg" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">16 nov</small>
-                            </div>
-                            <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0"> padel fest </h5>
-                                    <div class="ps-2">
-                                        
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-table-tennis-paddle-ball"></i> sport</small>
-                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                                    <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
-                                </div>
-                                <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident amet ex, temporibus culpa, magni 
-                                    and get entertained.
-                                </p>
-                              <br>
-
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
-        <!-- events End -->
 
-
-        <!-- Video Start -->
         <div class="container-xxl py-5 px-0 wow zoomIn" data-wow-delay="0.1s">
             <div class="row g-0">
                 <div class="col-md-6 bg-dark d-flex align-items-center">
@@ -309,7 +238,7 @@
                         <h1 class="text-white mb-4">Watch this video to know more about us
                               </h1>
                         <p class="text-white mb-4">Ready to attend new events ?</p>
-                        <a href="contact.html" class="btn btn-primary py-md-3 px-md-5 me-3">Contact US </a>
+                        <a href="user-contact.html" class="btn btn-primary py-md-3 px-md-5 me-3">Contact US </a>
                         <a href="EVENTS.html" class="btn btn-light py-md-3 px-md-5">Book UR Event</a>
                     </div>
                 </div>
