@@ -1,3 +1,14 @@
+<?php
+include '../config/config.php';
+session_start();
+if(empty($_SESSION['user_email'])){
+    header('user-login.php');
+}
+$user_email = $_SESSION['user_email'];
+$sql = "SELECT * FROM `user` WHERE `email`='$user_email'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,7 +104,12 @@
                                     </div>
                                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                                 </div>
-                                <a href="sign in/index.html" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"> LOG IN / REGESTION<i class="fa fa-arrow-right ms-3"></i></a>
+                                <a href="index.php" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">
+                                     <?php 
+                                        echo $row['name'];
+                                     ?> 
+                                     <i class="fa fa-arrow-right ms-3"></i>
+                                </a>
                             </div>
                         </nav>
                     </div>
@@ -106,7 +122,7 @@
         <div class="container">
             <div id="hotevents" class="text-center wow fadeInUp" data-wow-delay="0.1s">
              
-                <h1 class="mb-5"> <span class="text-primary text-uppercase">event</span> details </h1>
+                <h1 class="mb-5"> <span class="text-primary text-uppercase">event</span> DETAILS </h1>
             </div>
             <div class="row g-4">
       
@@ -121,42 +137,41 @@
     
        
             
- 
+                    <?php
+                    $id = $_GET['event_id'];
+                    $sql = "SELECT * FROM `event` WHERE `id`='$id'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $split_date = explode(" ", $row['date']);
+                    $date = $split_date[0];
+                    $time = $split_date[1];
+                    ?>
             
             
                     <div class="projcard projcard-customcolor" style="--projcard-color: #F5AF41;">
-                      <div class="projcard-innerbox">
-                        <img class="projcard-img" src="img/img2/3.jpg" />
-                        <small style="height: 70px ;" class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">26 feb </small>
-                        <div class="projcard-textbox">
-                          <div class="projcard-title">El Da7ee7 live show</div>
-                          <div class="projcard-subtitle"> Have a nice day!</div>
-                          <div class="projcard-bar"></div>
-        
-                          <div class="projcard-description">
-                            Live performance
-                            Nobody should call himself a real DA7EE7, because there is only one and he’s coming to Zed Winter Festival for the very first time to present to us El Da7ee7 LIVE show organized by Event House.
-                            <br>
-                            <small class="border-end me-3 pe-3"><i class="fa-sharp fa-solid fa-book"></i> eductional </small>
-                            <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> 7 to 9 PM</small>
-                            <small><i class="fa-solid fa-money-check-dollar"></i> 200 Egyptian Pound  </small>
-                            <br>
-                            <label for="tentacles"
-                            aria-placeholder="no ">Number of tickets (1-10):</label>
-        
-                            <input style="width: 105px
-        
-                            ;" width="70px
-                    " type="number" id="tentacles" name="tentacles"
-                                   min="1" max="10" placeholder="no of tickets
-                                   ">
+                        <div class="projcard-innerbox">
+                            <img class="projcard-img" src="event_img/<?=$row['event_img'] ?>" />
+                            <small style="height: 70px ;" class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">26 feb </small>
+                            <div class="projcard-textbox">
+                                <div class="projcard-title"><?=$row['name'] ?></div>
+                                <div class="projcard-subtitle"> Have a nice day!</div>
+                                <div class="projcard-bar"></div>
+                                <div class="projcard-description">
+                                   <?=$row['description'] ?>
+                                    <br>
+                                    <small class="border-end me-3 pe-3"><i class="fa-sharp fa-solid fa-book"></i> <?=$row['category'] ?> </small>
+                                    <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> <?=$time ?></small>
+                                    <small><i class="fa-solid fa-money-check-dollar"></i> <?=$row['price'] ?>  </small>
+                                    <br>
+                                    <label for="tentacles"
+                                    aria-placeholder="no ">Number of tickets (1-10):</label>
+                                    <input style="width: 105px;" width="70px" type="number" id="tentacles" name="tentacles"min="1" max="10" placeholder="no of tickets">
+                                </div>
+                                <div class="">
+                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="PAYMENT page/index.html">Book Now</a> 
+                                </div>
                             </div>
-                         
-                          <div class="">
-                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="PAYMENT page/index.html">Book Now</a> 
-                          </div>
                         </div>
-                      </div>
                     </div>
                     <style>
                         /* Demo Code: */

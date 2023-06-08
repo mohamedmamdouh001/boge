@@ -4,9 +4,7 @@ session_start();
 if(isset($_SESSION['user_email'])){
     $user_email = $_SESSION['user_email'];
 }
-// if(empty($user_email)){
-//     header("location:user-login.php");
-// }
+
 if(isset($_GET['signout'])){
     unset($_SESSION['user_email']);
     header('location:owner-login.php');
@@ -219,9 +217,8 @@ if(isset($_GET['signout'])){
                                 <?=$row['description'] ?><br> hosting by BOGE.</p>
                                 <br>
                                     <div class="d-flex justify-content-between">
-                                        <a  style="width: 200px;" class=" btn btn-sm btn-dark rounded py-2 px-4 " href="elda7e7eventdetials.html"> book now  </a>
-                                 
-                                </div>
+                                        <a  style="width: 200px;" class=" btn btn-sm btn-dark rounded py-2 px-4 " href="user-view-event-details.php?event_id=<?=$row['id']; ?>"> Book Now  </a>
+                                    </div>
                             </div>
                         </div>
                     </div>
