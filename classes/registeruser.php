@@ -11,6 +11,10 @@ class RegisterUser extends Dbh{
             $_SESSION['success'] = "Registration is done successfully";
             $_SESSION['email'] = $email;
             $_SESSION['name'] = $fullName;
+            $sql_2 = "SELECT * FROM `user` WHERE `email`='$email'";
+            $result = $this->conn()->query($sql_2);
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['user_id'] = $row['user_id'];
             header("location:../assets/user-events.php");
         }
         else{

@@ -219,8 +219,7 @@ if(empty($user_email)){
                                     Event Information:
                                     <?=$row['description'] ?><br> hosting by BOGE.</p>
                                     <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
+                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="user-view-event-details.php?event_id=<?=$row['id']; ?>">Book Now</a>
                                 </div>
                             </div>
                         </div>

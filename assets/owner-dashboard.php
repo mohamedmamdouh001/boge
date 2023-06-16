@@ -1,4 +1,4 @@
-<?php
+ <?php
 include '../config/config.php';
 session_start();
 $owner_id = $_SESSION['owner_id'];
@@ -140,8 +140,10 @@ if(empty($_SESSION['full_name'])){
                                 <td>Ticket Price</td>
                                 <td>Event days</td>
                                 <td>Status</td>
+                                
                                 <td>Full Details</td>
                                 <td>Cancel</td>
+                                <td>update</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -157,14 +159,20 @@ if(empty($_SESSION['full_name'])){
                                     <td><?=$row['price'] ?></td>
                                     <td><?=$row['host_days'] ?></td>
                                     <td>
-                                        <span class="label bg-orange c-white btn-shape"><?=$row['status'] ?></span>
+                                        <span class="label bg-green c-white btn-shape"><?=$row['status'] ?></span>
                                     </td>
                                     <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal?id=<?= $row['id']?>">
                                             View
                                         </button>
                                     </td>
                                     <td><a href="../handlers/delete.php?id=<?=$row['id']?>" class="btn btn-danger">Delete Event</a></td>
+                                <td>
+
+                                <a href="" class="label bg-orange c-white btn-shape"> update </a>
+                            
+                                </td>
                                 </tr>
+
                                 
 
                                 <div class="modal fade" id="exampleModal?id=<?= $row['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

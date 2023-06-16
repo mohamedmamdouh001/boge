@@ -7,7 +7,7 @@ if(isset($_SESSION['user_email'])){
 
 if(isset($_GET['signout'])){
     unset($_SESSION['user_email']);
-    header('location:owner-login.php');
+    header('location:user-login.php');
 }
 ?>
 

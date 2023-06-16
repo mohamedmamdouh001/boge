@@ -45,7 +45,8 @@ if(isset($_GET['signout'])){
                 </li>
               
                 <li>
-                    <a class="d-flex align-center fs-14 c-b p-10 rad-6" href=""><i
+                    <a class="d-flex align-center fs-14 c-b p-10 rad-6" href="USERS.html">
+                        <i
                             class="fa-solid fa-user fa-fw"></i><span> users  </span>
                     </a>
                 </li>

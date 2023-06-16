@@ -7,6 +7,8 @@ class LoginUser extends Dbh{
         $row = mysqli_num_rows($result);
         if($row == 1 ){
             $_SESSION['user_email'] = $email;
+            $user_arr = mysqli_fetch_assoc($result);
+            $_SESSION['user_id'] = $user_arr['user_id'];
             header("location:../assets/index.php");
         }
         else{

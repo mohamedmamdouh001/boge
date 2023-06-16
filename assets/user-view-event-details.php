@@ -2,8 +2,9 @@
 include '../config/config.php';
 session_start();
 if(empty($_SESSION['user_email'])){
-    header('user-login.php');
+    header('location:user-login.php');
 }
+
 $user_email = $_SESSION['user_email'];
 $sql = "SELECT * FROM `user` WHERE `email`='$user_email'";
 $result = mysqli_query($conn, $sql);
@@ -47,7 +48,7 @@ $row = mysqli_fetch_assoc($result);
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body  >
+<body>
     
         
     
@@ -139,12 +140,14 @@ $row = mysqli_fetch_assoc($result);
             
                     <?php
                     $id = $_GET['event_id'];
+
                     $sql = "SELECT * FROM `event` WHERE `id`='$id'";
                     $result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($result);
                     $split_date = explode(" ", $row['date']);
                     $date = $split_date[0];
                     $time = $split_date[1];
+                    $remaining_tickets = $row['tickets_num'] - $row['sold_tickets'];
                     ?>
             
             
@@ -163,13 +166,27 @@ $row = mysqli_fetch_assoc($result);
                                     <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> <?=$time ?></small>
                                     <small><i class="fa-solid fa-money-check-dollar"></i> <?=$row['price'] ?>  </small>
                                     <br>
-                                    <label for="tentacles"
-                                    aria-placeholder="no ">Number of tickets (1-10):</label>
-                                    <input style="width: 105px;" width="70px" type="number" id="tentacles" name="tentacles"min="1" max="10" placeholder="no of tickets">
+                                    <p for="tentacles"
+                                    aria-placeholder="no "><?=$remaining_tickets?> tickets is left</p>
+
+                                    <?php
+                                    if($remaining_tickets == 0){ ?>
+                                    <p for="tentacles"aria-placeholder="no ">No tickets available now</p>
+                                    <?php
+                                    }else{ ?>
+                                    <form action="user-payment.php" method="post" >
+                                        <label for="tentacles" aria-placeholder="no ">Number of tickets: </label>
+                                        <input style="width: 150px;" width="70px" type="number" id="tentacles" name="ticket_res" min="1" max="5" required placeholder="Enter Here...">
+                                        <input type="hidden" name="event_id" value="<?=$id?>" >
+                                    <?php
+                                    }
+                                    ?>
+                                    
                                 </div>
                                 <div class="">
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="PAYMENT page/index.html">Book Now</a> 
+                                    <button class="btn btn-sm btn-dark rounded py-2 px-4" name="book" type="submit">Book Now</button> 
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
