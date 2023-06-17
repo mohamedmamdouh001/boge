@@ -2,7 +2,7 @@
 session_start();
 require_once("../config/config.php");
 $id = $_GET['id'];
-$sql = "UPDATE `reqeust`
+$sql = "UPDATE `event`
         SET `status` = 'accepted'
         WHERE `id` = '$id'";
 $result = mysqli_query($conn, $sql);
