@@ -145,17 +145,18 @@ if(empty($user_email)){
          <!-- Booking Start -->
          <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
+                <form action="" method="post" >
                 <div class="bg-white shadow" style="padding: 35px;">
                     <div class="row g-2">
                         <div class="col-md-10">
                             <div class="row g-2">
                                 <div class="col-md-3">
                                     <div class="name" id="date1" data-target-input="nearest">
-                                        <select class="form-select">
-                                            <option selected> categroy  </option>
-                                            <option value="1">entertament  </option>
-                                            <option value="1">eductional  </option>
-                                            <option value="1">sports event  </option>
+                                        <select class="form-select" aria-placeholder="Select your category" name="category" >
+                                            <option value="Educational">Educational</option>
+                                            <option value="Entertainment">Entertainment</option>
+                                            <option value="Sports">Sports</option>
+                                            <option value="Music">Music</option>
                                         </select>
                                         
                                        
@@ -164,18 +165,21 @@ if(empty($user_email)){
           
                              
                                 <div class="col-md-9">
-                                    <input style="width: 100%
-                                        ;" type="text" class="form-control datetimepicker-input"
-                                            placeholder=" Event Name" data-target="" data-toggle="datetimepicker" />
+                                    <input style="width: 100%;" type="text" class="form-control datetimepicker-input"
+                                            placeholder=" Event Name" data-target="" data-toggle="datetimepicker" name="event-name" />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary w-100"> find your enent
-                                 </button>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary w-100" type="submit" name="search-event" > find your event</button>
                         </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary w-100" type="submit" name="reset" > Reset Results</button>
+                        </div>
+
                     </div>
                 </div>
+                </form>
             </div>
         </div>
         <!-- search End -->
@@ -187,6 +191,53 @@ if(empty($user_email)){
                 <div id="hotevents" class="text-center wow fadeInUp" data-wow-delay="0.1s">
                   
                 </div>
+                <?php
+                if(isset($_POST['search-event'])){
+                    $event_name = $_POST['event-name'];
+                    $category = $_POST['category'];
+                    $stmt = "SELECT * FROM `event`
+                            WHERE `event` LIKE '%$event_name%' OR`category` LIKE '%$category%' AND `status`='accepted'";
+                    $result = mysqli_query($conn, $stmt);
+                    while($row = mysqli_fetch_assoc($result)){
+                        $date_arr = explode( ' ', $row['date'], 2);
+                        $date = $date_arr[0];
+                        $time = $date_arr[1];
+                        ?>
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="room-item shadow rounded overflow-hidden">
+                                <div class="position-relative">
+                                    <img class="img-fluid" src="event_img/<?=$row['event_img']?>" alt="">
+                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">01 May  </small>
+                                </div>
+                                <div class="p-4 mt-2">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0"><?=$row['name'] ?></h5>
+                                        <div class="ps-2">
+                                       
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-3">
+                                        <small class="border-end me-3 pe-3"><i class="fa-solid fa-music"></i></i> <?=$row['category'] ?> </small>
+                                        <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> <?=$time ?></small>
+                                        <small><i class="fa-solid fa-money-check-dollar"></i>  <?=$row['price'] ?> EGP  </small>
+                                    </div>
+                                    <p class="text-body mb-3">
+                                        Event Information:
+                                        <?=$row['description'] ?><br> hosting by BOGE.</p>
+                                        <div class="d-flex justify-content-between">
+                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="user-view-event-details.php?event_id=<?=$row['id']; ?>">Book Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php }?>
+                <?php
+                } elseif (isset($_POST['reset'])) {
+                    unset($_POST['reset']);
+                } else{
+
+
+                ?>
                 <div class="row g-4">
                 <?php
                     $stmt = "SELECT * FROM `event` WHERE `status` = 'accepted'";
@@ -224,7 +275,8 @@ if(empty($user_email)){
                             </div>
                         </div>
                     </div>
-                    <?php }?>
+                    <?php }
+                }?>
                 </div>
             </div>
         </div>

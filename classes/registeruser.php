@@ -1,12 +1,12 @@
 <?php
 session_start();
 class RegisterUser extends Dbh{
-    public function __construct($fullName, $age, $nationalID, $email, $password, $city, $gender, $position){
+    public function __construct($fullName, $age, $nationalID, $email, $password, $city, $gender, $position, $phone){
         $sql = "SELECT * FROM `user` WHERE `ssn` = '$nationalID'";
         $result = $this->conn()->query($sql);
         $count = mysqli_num_rows($result);
         if($count == 0){
-            $sql = "INSERT INTO `user` (`name`, `age`, `ssn`, `email`, `pw_u`, `city`, `gender`, `position`) VALUES ('$fullName', '$age', '$nationalID', '$email', '$password', '$city', '$gender', '$position')";
+            $sql = "INSERT INTO `user` (`name`, `age`, `ssn`, `email`, `pw_u`, `city`, `gender`, `position`, `phone`) VALUES ('$fullName', '$age', '$nationalID', '$email', '$password', '$city', '$gender', '$position', '$phone')";
             $stmt = $this->conn()->query($sql);
             $_SESSION['success'] = "Registration is done successfully";
             $_SESSION['email'] = $email;

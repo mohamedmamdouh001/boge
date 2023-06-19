@@ -13,8 +13,9 @@ $email = $_POST['email'];
 $ssn = $_POST['ssn'];
 $age = $_POST['age'];
 $city = $_POST['city'];
-// $documentation = $_FILES['documentation']['name'];
+$phone =$_POST['phone'];
 
 
-$newUser = new RegisterOwner($firstname, $lastname, $email, $ssn, $age, $city);
+
+$newUser = new RegisterOwner($firstname, $lastname, $email, $ssn, $age, $city, $phone);
 

@@ -118,10 +118,20 @@ session_start();
                   <div class="formbold-mb-3">
                     <label for="national id" class="formbold-form-label"> National id </label>
                     <input
-                      type="text"
+                      type="number"
                       name="ssn"
                       id="national_id"
                       placeholder="your national_id"
+                      class="formbold-form-input"
+                    />
+                  </div>
+                  <div class="formbold-mb-3">
+                    <label for="phone" class="formbold-form-label"> Phone Number </label>
+                    <input
+                      type="number"
+                      name="phone"
+                      id="phone"
+                      placeholder="Enter your phone number"
                       class="formbold-form-input"
                     />
                   </div>

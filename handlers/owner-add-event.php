@@ -20,9 +20,9 @@ if(isset($_POST['request'])){
 
     $description = $_POST['description'];
     $owner_id = $_SESSION['owner_id'];
-
+    $social_media_url = $_POST['social'];
     $event = new Event();
-    $event->setEvent($name, $date, $price, $category, $image, $host_days, $description, $ticket_num, $owner_id);
+    $event->setEvent($name, $date, $price, $category, $image, $host_days, $description, $ticket_num, $owner_id, $social_media_url);
     $_SESSION["success"] = "Event is sent to Admin successfully";
     header('location:../assets/EVENTDETIALFORM.php');
 }

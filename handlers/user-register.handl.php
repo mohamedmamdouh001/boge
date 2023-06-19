@@ -16,7 +16,7 @@ $password = $_POST['password'];
 $city = $_POST['address'];
 $gender = $_POST['occupation'];
 $position = $_POST['position'];
+$phone = $_POST['phone'];
 
-
-$newUser = new RegisterUser($fullName, $age, $nationalID, $email, $password, $city, $gender, $position);
+$newUser = new RegisterUser($fullName, $age, $nationalID, $email, $password, $city, $gender, $position, $phone);
 

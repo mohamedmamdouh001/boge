@@ -46,7 +46,7 @@ if(empty($_SESSION['owner_id'])){
                     type="text"
                     name="event_name"
                     id="lastname"
-                    placeholder="Cooper"
+                    placeholder="EX:Cooper"
                     class="formbold-form-input"
                     />
                     <label for="lastname" class="formbold-form-label"> Event Name </label>
@@ -67,21 +67,19 @@ if(empty($_SESSION['owner_id'])){
                 
               <div class="formbold-input-flex">
                 <div>
-                    <input
-                    type="text"
-                    name="category"
-                    id="email"
-                    placeholder="ex:(sport/....)"
-                    class="formbold-form-input"
-                    />
-                    <label for="email" class="formbold-form-label"> Categroy </label>
+                  <select class="formbold-form-input" name="category" id="occupation">
+                    <option value="Educational">Educational</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Music">Music</option>
+                  </select><label class="formbold-form-label">CATEGORY</label>
                 </div>
                 <div>
                   <input
                   type="number"
                   name="host_days"
                   id="lastname"
-                  placeholder="e.g: 9 days"
+                  placeholder="EX: 9 days"
                   class="formbold-form-input"
                   />
                   <label for="lastname" class="formbold-form-label"> Days of hosting  </label>
@@ -97,6 +95,20 @@ if(empty($_SESSION['owner_id'])){
                   <label for="phone" class="formbold-form-label"> Price  </label>
               </div>
               </div>
+                    
+              <div class="formbold-mb-3">
+        <label for="social" class="formbold-form-label"  >
+          socail media link
+        </label>
+        <input
+          type="text"
+          name="social"
+          id="social"
+          class="formbold-form-input"
+          placeholder="ULR"
+        />
+      </div>
+      <DIv></DIv>
               <div class="formbold-mb-3">
                 <label for="upload" class="formbold-form-label">
                   Upload  event photo
@@ -109,7 +121,7 @@ if(empty($_SESSION['owner_id'])){
                 />
               </div>
               
-      <br>
+        
               <div class="formbold-textarea">
                   <textarea
                       rows="6"
