@@ -96,6 +96,20 @@ if(empty($_SESSION['full_name'])){
                 <?php
                     $stmt1 = "SELECT SUM(`tickets_num`) FROM `event` WHERE `owner_id`='$owner_id' ";
                     $summation = mysqli_query($conn, $stmt1);
+                    $sum = "";
+                    while ($row = $summation->fetch_assoc()) {
+                        $sum = $row["SUM(`tickets_num`)"];
+                    }
+
+                    $sold= "";
+                    $stmt2 = "SELECT SUM(`sold_tickets`) FROM `event` WHERE `owner_id`='$owner_id' ";
+                    $sold_tickets = mysqli_query($conn, $stmt2);
+                    while ($row2 = $sold_tickets->fetch_assoc()) {
+                        $sold = $row2["SUM(`sold_tickets`)"];
+                    }
+
+                    $remain = $sum - $sold;
+
                 ?>
                 <div class="tickets p-20 bg-white rad-10">
                     <h2 class="mt-0 mb-10">Tickets Statistics</h2>
@@ -103,17 +117,17 @@ if(empty($_SESSION['full_name'])){
                     <div class="d-flex gap-20 txt-center f-wrap">
                         <div class="box p-20 rad-10 fs-13 c-gray  bo">
                             <i class="fa-regular fa-rectangle-list fa-2x mb-10 c-orange"></i>
-                            <span class="d-block c-b fw-bold fs-25 mb-5"> <?php while ($row = $summation->fetch_assoc()) {echo $row["SUM(`tickets_num`)"];} ?> </span>
+                            <span class="d-block c-b fw-bold fs-25 mb-5"> <?=$sum   ?> </span>
                             Total
                         </div>
                         <div class="box p-20 rad-10 fs-13 c-gray bo">
                             <i class="fa-solid fa-circle-check fa-2x mb-10 c-green"></i>
-                            <span class="d-block c-b fw-bold fs-25 mb-5">Under Developing</span>
+                            <span class="d-block c-b fw-bold fs-25 mb-5"><?=$sold ?></span>
                             sold
                         </div>
                         <div class="box p-20 rad-10 fs-13 c-gray bo">
                             <i class="fa-solid fa-spinner fa-2x mb-10 c-blue"></i>
-                            <span class="d-block c-b fw-bold fs-25 mb-5">Under Developing</span>
+                            <span class="d-block c-b fw-bold fs-25 mb-5"><?=$remain ?></span>
                             remaining tickets
                         </div>
 

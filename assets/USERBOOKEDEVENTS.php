@@ -147,7 +147,6 @@ $result = mysqli_query($conn, $sql);
             <div class="projcard projcard-customcolor" style="--projcard-color: #F5AF41;">
             <div class="projcard-innerbox">
               <img class="projcard-img" src="event_img/<?=$row['event_img']?>" />
-              <small style="height: 70px ;" class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">26 feb </small>
               <div class="projcard-textbox">
                 <div class="projcard-title"><?=$row['name']?></div>
                 <div class="projcard-subtitle"> Have a nice day!</div>

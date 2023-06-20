@@ -95,6 +95,12 @@ if(isset($_GET['signout'])){
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="index.php" class="nav-item nav-link active">Home</a>
+                                    <?php
+                                    if(isset($_SESSION['user_email'])){?>
+                                        <a href="USERBOOKEDEVENTS.php" class="nav-item nav-link">Booked Events</a>
+                                    <?php
+                                    }
+                                    ?>
                                     <a href="#hotevents" class="nav-item nav-link"> hot events   </a>
                                     <a href="user-events.php" class="nav-item nav-link"> events </a>
                                     

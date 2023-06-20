@@ -50,11 +50,7 @@ if(empty($user_email)){
 <body>
     <div  class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
+      
         <!-- Spinner End -->
 
         <!-- Header Start -->
@@ -99,7 +95,7 @@ if(empty($user_email)){
                             <div class="navbar-nav mr-auto py-0">
                                 <a href="index.html" class="nav-item nav-link active">Home</a>
                                 <a href="index.html#hotevents" class="nav-item nav-link"> hot events   </a>
-                                <a href="EVENTS.html" class="nav-item nav-link"> events </a>
+                                <a href="user-events.php" class="nav-item nav-link"> events </a>
                                 
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">become a partner</a>
@@ -144,15 +140,15 @@ if(empty($user_email)){
         <!-- search Start -->
          <!-- Booking Start -->
          <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
+         <form action="" method="post" >
             <div class="container">
-                <form action="" method="post" >
                 <div class="bg-white shadow" style="padding: 35px;">
                     <div class="row g-2">
                         <div class="col-md-10">
                             <div class="row g-2">
                                 <div class="col-md-3">
                                     <div class="name" id="date1" data-target-input="nearest">
-                                        <select class="form-select" aria-placeholder="Select your category" name="category" >
+                                        <select class="form-select" name="category">
                                             <option value="Educational">Educational</option>
                                             <option value="Entertainment">Entertainment</option>
                                             <option value="Sports">Sports</option>
@@ -165,22 +161,30 @@ if(empty($user_email)){
           
                              
                                 <div class="col-md-9">
-                                    <input style="width: 100%;" type="text" class="form-control datetimepicker-input"
-                                            placeholder=" Event Name" data-target="" data-toggle="datetimepicker" name="event-name" />
+                                    <input style="width: 100% ;" name="event-name" type="text" id="myFilter" class="form-control datetimepicker-input"    onkeyup="myFunction()"
+                                          placeholder=" Event Name" data-target="" data-toggle="datetimepicker"  />
+                                       
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-primary w-100" type="submit" name="search-event" > find your event</button>
-                        </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-primary w-100" type="submit" name="reset" > Reset Results</button>
-                        </div>
 
+                        <div class="col-md-2">
+                            <button class="btn btn-primary w-100" name="search-event" type="submit" > Search by name
+                                 </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary w-100" name="search-category" type="submit" > Search by category
+                                 </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary w-100" name="reset" type="submit" > Reset Results
+                                 </button>
+                        </div>
+                        
                     </div>
                 </div>
-                </form>
             </div>
+            </form>
         </div>
         <!-- search End -->
 
@@ -191,12 +195,12 @@ if(empty($user_email)){
                 <div id="hotevents" class="text-center wow fadeInUp" data-wow-delay="0.1s">
                   
                 </div>
+                <div class="row g-4">
                 <?php
                 if(isset($_POST['search-event'])){
                     $event_name = $_POST['event-name'];
-                    $category = $_POST['category'];
                     $stmt = "SELECT * FROM `event`
-                            WHERE `event` LIKE '%$event_name%' OR`category` LIKE '%$category%' AND `status`='accepted'";
+                            WHERE `name` LIKE '%$event_name%'  AND `status`='accepted'";
                     $result = mysqli_query($conn, $stmt);
                     while($row = mysqli_fetch_assoc($result)){
                         $date_arr = explode( ' ', $row['date'], 2);
@@ -231,10 +235,92 @@ if(empty($user_email)){
                             </div>
                         </div>
                         <?php }?>
+                        
                 <?php
-                } elseif (isset($_POST['reset'])) {
-                    unset($_POST['reset']);
-                } else{
+                } 
+                elseif(isset($_POST['search-category'])){
+                    $event_category = $_POST['category'];
+                    $stmt = "SELECT * FROM `event`
+                            WHERE `category` LIKE '%$event_category%'  AND `status`='accepted'";
+                    $result = mysqli_query($conn, $stmt);
+                    while($row = mysqli_fetch_assoc($result)){
+                        $date_arr = explode( ' ', $row['date'], 2);
+                        $date = $date_arr[0];
+                        $time = $date_arr[1];
+                        ?>
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="room-item shadow rounded overflow-hidden">
+                                <div class="position-relative">
+                                    <img class="img-fluid" src="event_img/<?=$row['event_img']?>" alt="">
+                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">01 May  </small>
+                                </div>
+                                <div class="p-4 mt-2">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0"><?=$row['name'] ?></h5>
+                                        <div class="ps-2">
+                                       
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-3">
+                                        <small class="border-end me-3 pe-3"><i class="fa-solid fa-music"></i></i> <?=$row['category'] ?> </small>
+                                        <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> <?=$time ?></small>
+                                        <small><i class="fa-solid fa-money-check-dollar"></i>  <?=$row['price'] ?> EGP  </small>
+                                    </div>
+                                    <p class="text-body mb-3">
+                                        Event Information:
+                                        <?=$row['description'] ?><br> hosting by BOGE.</p>
+                                        <div class="d-flex justify-content-between">
+                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="user-view-event-details.php?event_id=<?=$row['id']; ?>">Book Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php }?>
+                        
+                <?php
+                } 
+                elseif(isset($_POST['reset'])){
+                    ?>
+                    <div class="row g-4">
+                    <?php
+                        $stmt = "SELECT * FROM `event` WHERE `status` = 'accepted'";
+                        $result = mysqli_query($conn, $stmt);
+                        while($row = mysqli_fetch_assoc($result)){
+                            $date_arr = explode( ' ', $row['date'], 2);
+                            $date = $date_arr[0];
+                            $time = $date_arr[1];
+    
+                        ?>
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="room-item shadow rounded overflow-hidden">
+                                <div class="position-relative">
+                                    <img class="img-fluid" src="event_img/<?=$row['event_img']?>" alt="">
+                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">01 May  </small>
+                                </div>
+                                <div class="p-4 mt-2">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0"><?=$row['name'] ?></h5>
+                                        <div class="ps-2">
+                                       
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-3">
+                                        <small class="border-end me-3 pe-3"><i class="fa-solid fa-music"></i></i> <?=$row['category'] ?> </small>
+                                        <small class="border-end me-3 pe-3"><i class="fa-solid fa-clock"></i> <?=$time ?></small>
+                                        <small><i class="fa-solid fa-money-check-dollar"></i>  <?=$row['price'] ?> EGP  </small>
+                                    </div>
+                                    <p class="text-body mb-3">
+                                        Event Information:
+                                        <?=$row['description'] ?><br> hosting by BOGE.</p>
+                                        <div class="d-flex justify-content-between">
+                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="user-view-event-details.php?event_id=<?=$row['id']; ?>">Book Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php }
+                }
+                else{
 
 
                 ?>
@@ -426,17 +512,7 @@ if(empty($user_email)){
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Javascript -->
+    
     <script src="js/main.js"></script>
 </body>
 

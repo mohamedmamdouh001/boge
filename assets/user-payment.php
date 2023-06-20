@@ -14,6 +14,14 @@ if(isset($_POST['book'])){
 $sql = "SELECT * FROM `event` WHERE `id`='$event_id'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
+
+$user_id =  $_SESSION['user_id'];
+$sql_1 = "SELECT * FROM `user` WHERE `user_id`='$user_id'";
+$result_1 = mysqli_query($conn, $sql_1);
+$user = mysqli_fetch_assoc($result_1);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -94,11 +102,32 @@ $row = mysqli_fetch_assoc($result);
                 }
               ?>
             </div>
+            <div class="price">
+
+              <?php
+              if( $user['discount_used'] == "0"){?>
+                <p>Discount:</p>
+                <?php
+                $discount_rate = 0.05;
+                $sql_2 = "UPDATE `user`
+                         SET `discount_used`='1'
+                        WHERE `user_id`='$user_id'";
+                mysqli_query($conn, $sql_2);
+                ?>
+                <p><?=$discount_rate ?></p>
+
+
+              <?php
+              }else{
+                $discount_rate = 0;
+              }
+              ?>
+            </div>
             <br/>
             <hr/>
             <div class="total_price">
               <p class="dark">Total:</p>
-              <p class="dark"><?=$row['price'] * $tickets_num?> EGP</p>
+              <p class="dark"><?=($row['price'] * $tickets_num ) -($row['price'] * $discount_rate)?> EGP</p>
             </div>
           </div>
           <img class="qr_code" src="https://cdn-icons-png.flaticon.com/512/714/714390.png" alt="" />
